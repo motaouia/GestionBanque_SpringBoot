@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -15,13 +17,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE_CPTE", discriminatorType = DiscriminatorType.STRING , length = 250)
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+	@Type(name = "CC", value = CompteCourant.class),
+	@Type(name = "CE", value = CompteEpargne.class)
+})
 public abstract class Compte implements Serializable {
 	@Id
-	@Column(length=175) 
-	private String idCompt;
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long idCompt;
 	private Double soldeCompte;
 	private Date dateCreation;
 	
@@ -42,10 +59,10 @@ public abstract class Compte implements Serializable {
 		this.soldeCompte = soldeCompte;
 		this.dateCreation = dateCreation;
 	}
-	public String getIdCompte() {
+	public Long getIdCompte() {
 		return idCompt;
 	}
-	public void setIdCompte(String idCompte) {
+	public void setIdCompte(Long idCompte) {
 		this.idCompt = idCompte;
 	}
 	public Double getSoldeCompte() {
@@ -72,6 +89,7 @@ public abstract class Compte implements Serializable {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	@JsonIgnore
 	public List<Operation> getOperations() {
 		return operations;
 	}

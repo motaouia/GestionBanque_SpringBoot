@@ -1,4 +1,4 @@
-package com.mota.banque.repositories;
+package com.mota.banque.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

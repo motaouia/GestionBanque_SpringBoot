@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 @Entity
 public class Employee implements Serializable{
 	@Id
@@ -29,9 +32,9 @@ public class Employee implements Serializable{
 	@JoinColumn(name = "code_emp_sup")
 	private Employee emplyeSup;
 	
-	/*@OneToMany
+	@OneToMany
 	@JoinColumn(name = "employee")
-	private List<Operation> operations;*/
+	private List<Operation> operations;
 
 	public String getNameEmployee() {
 		return nameEmployee;
@@ -41,22 +44,18 @@ public class Employee implements Serializable{
 		this.nameEmployee = nameEmployee;
 	}
 
-	/*
-	
-	
-*/
-	/*public List<Operation> getOperations() {
+	public List<Operation> getOperations() {
 		return operations;
 	}
 
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
-	}*/
+	}
 
 	public Long getIdEmployee() {
 		return idEmployee;
 	}
-	
+	@JsonIgnore
 	public List<Groupe> getGroupes() {
 		return groupes;
 	}
@@ -64,5 +63,17 @@ public class Employee implements Serializable{
 	public void setGroupes(List<Groupe> groupes) {
 		this.groupes = groupes;
 	}
+	@JsonIgnore
+	public Employee getEmplyeSup() {
+		return emplyeSup;
+	}
+	@JsonSetter
+	public void setEmplyeSup(Employee emplyeSup) {
+		this.emplyeSup = emplyeSup;
+	}
 
+	public void setIdEmployee(Long idEmployee) {
+		this.idEmployee = idEmployee;
+	}
+	
 }

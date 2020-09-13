@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Client implements Serializable {
 
@@ -44,7 +46,7 @@ public class Client implements Serializable {
 	public void setNameClient(String nameClient) {
 		this.nameClient = nameClient;
 	}
-
+	@JsonIgnore
 	public List<Compte> getComptes() {
 		return comptes;
 	}
