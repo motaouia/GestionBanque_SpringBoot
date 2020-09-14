@@ -1,4 +1,4 @@
-Cette Vidéo est la première partie d'un exemple d'application basée dur Spring Boot comme conteneur de l'inversion de contrôle. Cette application se base sur une approche basée sur les micro services. Elle montre :
+Ce Projet est le premièr partie  exemple d'application basée dur Spring Boot comme conteneur de l'inversion de contrôle. Cette application se base sur une approche basée sur les micro services. Elle montre :
 
 - Comment créer des entités JPA avec des associations OneToMany-ManyToOne, ManyToMany et Héritage
 
